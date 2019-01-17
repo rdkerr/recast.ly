@@ -1,9 +1,11 @@
-var searchYouTube = (options, callback = () => {}) => {
+import YOUTUBE_API_KEY from '../../src/config/youtube.js';
+
+var searchYouTube = ({key=YOUTUBE_API_KEY, query, max}, callback = () => {}) => {
   // TODO
-  $.get( 'https://www.googleapis.com/youtube/v3/search',
-    {key: options.key,
-      q: options.query,
-      maxResults: options.max,
+  return $.get( 'https://www.googleapis.com/youtube/v3/search',
+    {key: key,
+      q: query,
+      maxResults: max,
       part: 'snippet',
       type: 'video'
     }, (data) => callback(data.items));
