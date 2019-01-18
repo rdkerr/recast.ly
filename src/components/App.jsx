@@ -11,7 +11,8 @@ class App extends React.Component {
     // this.onSearch('');
     this.state = {
       playing: exampleVideoData[0],
-      videoList: exampleVideoData
+      videoList: exampleVideoData,
+      autoplay: ''
     };
   }
 
@@ -28,6 +29,12 @@ class App extends React.Component {
     }));
   }
 
+  autoPlayToggle() {
+    this.setState({
+      autoplay: this.state.autoplay === '' ? '?autoplay=1' : ''
+    });
+  }
+
   componentDidMount() {
     this.onSearch('');
   }
@@ -42,7 +49,7 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <div><h5><em>videoPlayer</em> <VideoPlayer video={this.state.playing} /></h5></div>
+            <div><h5><div><input onChange={this.autoPlayToggle.bind(this)} class="form-check-input" type="checkbox" value="" id = "autoplay"/><label class="form-check-label" for="autoplay"> Autoplay</label></div><em>videoPlayer</em><VideoPlayer autoplay={this.state.autoplay} video={this.state.playing} /></h5></div>
           </div>
           <div className="col-md-5">
             <div><h5><em>videoList</em> <VideoList onClick={this.onListItemClick.bind(this)} videos={this.state.videoList} /></h5></div>
@@ -57,3 +64,6 @@ class App extends React.Component {
 // In the ES6 spec, files are "modules" and do not share a top-level scope
 // `var` declarations will only exist globally where explicitly defined
 export default App;
+
+
+
